@@ -1,0 +1,36 @@
+h1 {
+    display: flex;
+    justify-self: center;
+    font-size: 60px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.signUpForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    input {
+        width: 350px;
+        height: 40px;
+        font-size: 20px;
+    }
+    label {
+        font-size: 20px;
+    }
+    .signUpButton {
+        width: 350px;
+        height: 100px;
+        margin-top: 30px;
+        font-size: 40px;
+        font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+}
+a {
+    display: flex;
+    justify-self: center;
+    margin-top: 15px;
+    font-size: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

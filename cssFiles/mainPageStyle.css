@@ -1,0 +1,40 @@
+.headerMainPage {
+    display: flex;
+    justify-content: flex-end;
+    gap: 50px;
+    background-color: black;
+    background-size: cover;
+    .mainMenuHeaderButton {
+        background-color: white;
+        width: 200px;
+        height: 60px;
+        margin-right: 20px;
+        font-size: 40px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+}
+
+body {
+    margin: 0;
+}
+
+.pageContentMainPage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    h1 {
+        font-size: 80px;
+    }
+    p {
+        font-size: 50px;
+    }
+    button {
+        font-size: 70px;
+        width: 500px;
+        height: 100px;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        border-radius: 30px;
+    }
+}
