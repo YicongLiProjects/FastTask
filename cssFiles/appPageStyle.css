@@ -1,0 +1,38 @@
+.app_page_header {
+    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    justify-content: center;
+    column-gap: 1080px;
+    position: relative;
+    .app_name {
+        color: purple;
+        font-size: 40px;
+        margin-top: -5px;
+    }
+    .user_info_panel {
+        display: flex;
+        .user_data {
+            flex-direction: column;
+            margin-left: 10px;
+            color: blue;
+            h4 {
+                margin: 5px;
+            }
+        }
+        .pfp {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            margin-left: 10px;
+            border-color: cyan;
+        }
+    }
+}
+.app_button {
+    margin-top: 20px;
+    width: 300px;
+    height: 180px;
+    background-color: transparent;
+    border-color: lightskyblue;
+    border-radius: 20px;
+}

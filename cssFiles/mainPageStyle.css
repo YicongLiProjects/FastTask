@@ -2,10 +2,12 @@
     display: flex;
     justify-content: flex-end;
     gap: 50px;
-    background-color: black;
+    background-color: cyan;
     background-size: cover;
     .mainMenuHeaderButton {
         background-color: white;
+        color: blue;
+        border-color: aqua;
         width: 200px;
         height: 60px;
         margin-right: 20px;
@@ -26,14 +28,18 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     h1 {
         font-size: 80px;
+        color: lightskyblue;
     }
     p {
         font-size: 50px;
+        color: lightblue;
     }
     button {
         font-size: 70px;
         width: 500px;
         height: 100px;
+        color: blue;
+        border-color: lightblue;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
         border-radius: 30px;
     }
