@@ -3,6 +3,7 @@
     <title>FastTask - your todo list app</title>
     <link rel="icon" type="image/x-icon" href="../fasttask_favicon.svg">
     <link rel="stylesheet" href="../cssFiles/appPageStyle.css">
+    <script src="../jsFiles/app.js" defer></script>
     <body>
         <div class="app_page_header">
             <h1 class="app_name">FastTask</h1>
@@ -15,6 +16,32 @@
                 <button class="pfp"></button>
             </div>
         </div>
-        <button class="app_button"><img src="../add.png"></button>
+        <button class="add_button" id="addButton"><img src="../add.png"></button>
+        <!--Modal box used for adding tasks-->
+        <div class="task_modal_box" id="taskModalBox">
+            <div class="modal_box_content">
+                <div class="close_bar_modal_box">
+                    <span class="close_btn">&times;</span>
+                    <h2>Add new task</h2>
+                </div>
+                <div>
+                    <label for="taskName">Task name</label>
+                    <input type="text" id="taskName" name="taskName">
+                </div>
+                <div>
+                    <label for="taskNotes">Notes</label>
+                    <input type="text" id="taskNotes" name="taskNotes">
+                </div>
+                <div>
+                    <label for="taskEnd">End date and time</label>
+                    <input type="datetime-local" id="taskEnd" name="taskEnd">
+                </div>
+                <div>
+                    <label for="remindAt">Remind me at</label>
+                    <input type="datetime-local" id="remindAt" name="remindAt">
+                </div>
+                <button class="save_task_btn" id="saveTaskBtn">Add task</button>
+            </div>
+        </div>
     </body>
 </html>
