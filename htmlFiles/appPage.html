@@ -13,16 +13,21 @@
                     <h4>XP</h4>
                     <h4>Level</h4>
                 </div>
-                <button class="pfp"></button>
+                <button class="pfp" id="pfpButton"></button>
             </div>
         </div>
-        <button class="add_button" id="addButton"><img src="../add.png"></button>
+        <div class="tasks_list">
+            <button class="add_button" id="addButton"><img src="../add.png"></button>
+            <div class="task_container" id="taskContainer">
+
+            </div>
+        </div>
         <!--Modal box used for adding tasks-->
         <div class="task_modal_box" id="taskModalBox">
             <div class="modal_box_content">
                 <div class="close_bar_modal_box">
                     <span class="close_btn">&times;</span>
-                    <h2>Add new task</h2>
+                    <h2 id="modalTitle">Add new task</h2>
                 </div>
                 <div>
                     <label for="taskName">Task name</label>
@@ -40,7 +45,20 @@
                     <label for="remindAt">Remind me at</label>
                     <input type="datetime-local" id="remindAt" name="remindAt">
                 </div>
-                <button class="save_task_btn" id="saveTaskBtn">Add task</button>
+                <div>
+                    <button class="save_task_btn" id="saveTaskBtn">Save task</button>
+                    <button class="reset_btn" id="resetBtn">Clear all fields</button>
+                    <button class="delete_task_btn" id="deleteTaskBtn" disabled>Delete task</button>
+                </div>
+            </div>
+        </div>
+
+        <!--Account settings when clicking the profile picture-->
+        <div class="account_box" id="accountBox">
+            <div class="account_box_content">
+                <button id="helpBtn">Help</button>
+                <button id="accountDetailsBtn">Account details</button>
+                <button id="logoutBtn">Logout</button>
             </div>
         </div>
     </body>

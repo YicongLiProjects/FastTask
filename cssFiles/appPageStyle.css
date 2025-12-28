@@ -27,15 +27,34 @@
             border-color: cyan;
         }
     }
+    .pfp:hover {
+        cursor: pointer;
+        border-color: blue;
+    }
 }
-.add_button {
-    margin-top: 20px;
-    width: 300px;
-    height: 180px;
-    background-color: transparent;
-    border-color: lightskyblue;
-    border-radius: 20px;
+.tasks_list {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    .add_button {
+        margin-top: 20px;
+        width: 300px;
+        height: 180px;
+        flex-shrink: 0;
+        background-color: transparent;
+        border-color: lightskyblue;
+        border-radius: 20px;
+    }
+    .add_button:hover {
+        cursor: pointer;
+        border-color: blue;
+    }
+    .task_container {
+        flex-direction: row;
+        column-gap: 10px;
+    }
 }
+
 .task_modal_box {
     position: fixed;
     display: none;
@@ -48,7 +67,7 @@
         margin-top: 40px;
         row-gap: 20px;
         padding: 10px;
-        width: 500px;
+        width: 650px;
         height: 300px;
         margin-left: auto;
         margin-right: auto;
@@ -66,7 +85,7 @@
         .close_bar_modal_box {
             flex-direction: row;
             .close_btn {
-                margin-left: 470px;
+                margin-left: 630px;
                 font-size: 30px;
                 font-weight: bold;
             }
@@ -88,6 +107,59 @@
             color: blue;
             background-color: transparent;
             border-color: cadetblue;
+        }
+
+        .reset_btn {
+            width: 250px;
+            height: 40px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 30px;
+            color: blue;
+            background-color: transparent;
+            border-color: cadetblue;
+        }
+
+        .save_task_btn:hover, .reset_btn:hover {
+            cursor: pointer;
+            background-color: lightgray;
+        }
+
+        .delete_task_btn {
+            width: 200px;
+            height: 40px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 30px;
+            color: blue;
+            background-color: transparent;
+            border-color: cadetblue;
+        }
+
+        .delete_task_btn:hover {
+            cursor: pointer;
+            background-color: lightblue;
+        }
+    }
+}
+
+.account_box {
+    display: none;
+    .account_box_content {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 90%;
+        top: 12%;
+        margin-right: 15px;
+        border: 2px solid cyan;
+        button {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            color: purple;
+            background-color: white;
+        }
+        button:hover {
+            cursor: pointer;
+            background-color: lightgray;
         }
     }
 }
