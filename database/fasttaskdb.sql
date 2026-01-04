@@ -1,5 +1,6 @@
 -- Active: 1767155769831@@localhost@3306@fasttaskdb
 CREATE TABLE IF NOT EXISTS users (
+    user_id BIGINT AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     user_password VARCHAR(255) NOT NULL,
     username VARCHAR(20) NOT NULL,
@@ -7,16 +8,19 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR(30),
     date_of_birth DATE,
     profile_picture_url VARCHAR(255),
-    PRIMARY KEY(email)
+    PRIMARY KEY(user_id)
 );
 
 CREATE TABLE IF NOT EXISTS tasks (
+    user_id BIGINT NOT NULL,
     taskID VARCHAR(36) NOT NULL,
     taskName VARCHAR(100) NOT NULL,
     notes TEXT,
-    deadline DATETIME,
+    deadline DATETIME NOT NULL,
     remindAt DATETIME,
-    email VARCHAR(255) NOT NULL,
     PRIMARY KEY(taskID),
-    FOREIGN KEY(email) REFERENCES users(email)
+    FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
+
+DROP TABLE users;
+DROP TABLE tasks;
