@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR(30),
     date_of_birth DATE,
     profile_picture_url VARCHAR(255),
+    user_level INT DEFAULT 1,
+    xp_points INT DEFAULT 0,
     PRIMARY KEY(user_id)
 );
 
