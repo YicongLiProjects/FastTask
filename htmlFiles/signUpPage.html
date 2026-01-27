@@ -9,43 +9,43 @@
         <h1>
             Create new account
         </h1>
-        <form class="signUpForm" method="post">
+        <form class="signup_form" method="POST">
             {% csrf_token %}
             <div>
                 <label>
                     First name
                 </label>
-                <input type="text" placeholder="Enter your first name" name="fn">
+                <input type="text" placeholder="Enter your first name">
             </div>
             <div>
                 <label>
                     Last name
                 </label>
-                <input type="text" placeholder="Enter your last name" name="ln">
+                <input type="text" placeholder="Enter your last name">
             </div>
             <div>
                 <label>
                     Date of birth
                 </label>
-                <input type="date" name="dob">
+                <input type="date"/>
             </div>
             <div>
                 <label>
                     Email address
                 </label>
-                <input type="email" placeholder="example@abc.com" name="email"/>
+                <input type="email" placeholder="example@abc.com"/>
             </div>
             <div>
                 <label>
                     Username
                 </label>
-                <input type="text" placeholder="Max 20 characters" name="username"/>
+                <input type="text" placeholder="Max 20 characters"/>
             </div>
             <div>
                 <label>
                     Password
                 </label>
-                <input type="password" placeholder="8-20 characters long" name="password"/>
+                <input type="password" placeholder="8-20 characters long"/>
             </div>
             <input type="submit" value="Create account" class="signUpButton">
         </form>
