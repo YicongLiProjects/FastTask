@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
-# Initialize app
-class FastTaskConfig(AppConfig):
-    name = 'app'
+# Initialize application
+class ApplicationConfig(AppConfig):
+    name = 'application'
     DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

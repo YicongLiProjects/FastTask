@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user: User = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_id = models.BigAutoField(primary_key=True)
+    user_id_primary = models.BigAutoField(primary_key=True)
     xp = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
     pfp = models.URLField(blank=True, null=True)

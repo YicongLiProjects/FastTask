@@ -1,0 +1,32 @@
+version: 3.9
+
+services:
+  web:
+    build: .
+    container_name: fasttask_webapp
+    command: gunicorn server.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.4
+    container_name: fasttask_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: fasttaskdb
+      MYSQL_USER: fasttask
+      MYSQL_PASSWORD: "@todolistAPP25"
+      MYSQL_ROOT_PASSWORD: password
+    
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+  volumes:
+    mysql_data:

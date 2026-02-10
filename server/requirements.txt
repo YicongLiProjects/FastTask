@@ -1,4 +1,4 @@
-Django>=4.2
+Django>=5.0
 pymysql>=1.1.0
 boto3>=1.40.0
 django-storages[boto3]>=1.14.0

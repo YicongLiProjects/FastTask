@@ -20,13 +20,13 @@ DATABASES = {
 }
 
 INSTALLED_APPS = [
-    "FastTask.apps.FastTaskConfig",
     "django.contrib.auth",
     "django.contrib.admin",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles"
+    "django.contrib.staticfiles",
+    "application"
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -38,11 +38,11 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware"
 ]
 
-ROOT_URLCONF = 'fasttask.urls'
+ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / "htmlFiles"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -82,5 +82,3 @@ CSRF_COOKIE_SECURE = True
 
 SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = False
-
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
