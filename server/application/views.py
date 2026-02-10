@@ -1,9 +1,11 @@
 import json
 import os
+import sys
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent.__str__())
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
 
 import django
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
 django.setup()
 
 from django.http import JsonResponse
@@ -13,7 +15,6 @@ from django.contrib.auth import authenticate, login
 from django.utils import timezone
 from models import *
 from django.middleware.csrf import get_token
-
 
 
 # @ marks the start of a decorator used to support various HTTP features
@@ -49,7 +50,7 @@ def signup(request):
         return JsonResponse({"error": "Name must be under 30 characters"}, status=400)
 
 
-    user = User.objects.create_user(username, email, password, first_name, last_name)
+    user = User.objects.create_user(username, email, password, first_name=first_name, last_name=last_name)
     profile = Profile(user=user, dob=dob, xp=0, level=1, pfp=None)
     profile.save()
 
@@ -102,7 +103,12 @@ def update_profile(request):
     username = request.POST.get("username", "")
     password = request.POST.get("password", "")
     pfp = request.POST.get("pfp", "")
+    user = User.objects.create_user(username, email, password, first_name=fn, last_name=ln)
+    profile = Profile.objects.get(user=user)
+    profile.dob = dob
+    profile.pfp = pfp
     return None
+
 
 @login_required
 def get_task(request):

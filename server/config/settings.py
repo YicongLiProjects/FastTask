@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-
 from django.conf.global_settings import SESSION_COOKIE_SAMESITE
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,6 +20,7 @@ DATABASES = {
 }
 
 INSTALLED_APPS = [
+    "FastTask.apps.FastTaskConfig",
     "django.contrib.auth",
     "django.contrib.admin",
     "django.contrib.contenttypes",
