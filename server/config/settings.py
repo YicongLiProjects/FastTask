@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from django.conf.global_settings import SESSION_COOKIE_SAMESITE
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 DEBUG = True
 
@@ -14,7 +14,7 @@ DATABASES = {
         'NAME': 'fasttaskdb',
         'USER': 'fasttask',
         'PASSWORD': '@todolistAPP25',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306'
     }
 }
@@ -42,7 +42,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "htmlFiles"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -54,7 +54,7 @@ TEMPLATES = [
         }
     }
 ]
-WSGI_APPLICATION = 'fasttask.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
