@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     user_id BIGINT AUTO_INCREMENT,
     email VARCHAR(255) NOT NULL,
     user_password VARCHAR(255) NOT NULL,
-    username VARCHAR(20) NOT NULL,
+    display_name VARCHAR(20) NOT NULL,
     first_name VARCHAR(30),
     last_name VARCHAR(30),
     date_of_birth DATE,
@@ -14,14 +14,14 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS tasks (
-    user_id BIGINT NOT NULL,
+    user_id_key BIGINT NOT NULL,
     taskID VARCHAR(36) NOT NULL,
     taskName VARCHAR(100) NOT NULL,
     notes TEXT,
     deadline DATETIME NOT NULL,
     remindAt DATETIME,
     PRIMARY KEY(taskID),
-    FOREIGN KEY(user_id) REFERENCES users(user_id)
+    FOREIGN KEY(user_id_key) REFERENCES users(user_id)
 );
 
 DROP TABLE users;

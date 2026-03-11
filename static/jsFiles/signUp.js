@@ -1,0 +1,36 @@
+fnField = document.getElementById("firstNameField");
+lnField = document.getElementById("lastNameField");
+dobField = document.getElementById("dobField");
+emailField = document.getElementById("emailField");
+usernameField = document.getElementById("usernameField");
+passwordField = document.getElementById("passwordField");
+signupButton = document.getElementById("signupButton");
+loginErrorDisplay = document.getElementById("loginErrorDisplay");
+
+signupButton.addEventListener("click", async () => {
+    const signup_data = {
+        fn: fnField.value,
+        ln: lnField.value,
+        date_of_birth: dobField.value,
+        email: emailField.value,
+        username: usernameField.value,
+        password: passwordField.value
+    };
+    const request = new Request("/signup/", {
+        method: "POST",
+        headers: {
+            "Content-Type": 'application/json',
+            "X-CSRFToken": '{{ csrf_token }}'
+        },
+        body: JSON.stringify(signup_data)
+    });
+    try {
+        const response = await fetch(request);
+        if (!response.ok) {
+            loginErrorDisplay.textContent = response.statusText;
+            loginErrorDisplay.style.display = "block";
+        }
+    } catch (error) {
+        console.error("Error occurred while signing up:", error);
+    }
+});

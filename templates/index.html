@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <title>FastTask - An easy to use task planner</title>
-    <link rel="stylesheet" href="../static/cssFiles/mainPageStyle.css">
+    <link rel="stylesheet" href="../static/cssFiles/indexStyle.css">
     <link rel="icon" type="image/x-icon" href="../fasttask_favicon.svg">
     <body>
         <div class="headerMainPage">
             <Button class="mainMenuHeaderButton" onclick="window.location.href='loginPage.html'">Login</Button>
             <Button class="mainMenuHeaderButton" onclick="window.location.href='helpPage.html'">Help</Button>
         </div>
+        <a href="{% url 'index' %}">Home</a>
         <div class="pageContentMainPage">
             <h1>Welcome to FastTask!</h1>
             <p>

@@ -17,11 +17,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # WORKDIR sets the work directory
-WORKDIR = "/server"
+WORKDIR = /server
 
 # Install Python dependencies
 # requirements.txt lists the dependencies the project will rely on
-COPY requirements.txt .
+COPY requirements.txt ./
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Copy entire project
@@ -31,4 +31,4 @@ COPY . .
 EXPOSE 8000
 
 # Start gunicorn for deployment
-CMD ["gunicorn", "server.wsgi:application", "--bind", "0:0:0:0:8000"]
+CMD ["gunicorn", "--bind", "0:0:0:0:8000", "config.wsgi:application"]

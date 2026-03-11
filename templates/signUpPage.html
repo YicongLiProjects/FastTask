@@ -5,50 +5,55 @@
     </title>
     <link rel="stylesheet" href="../static/cssFiles/signUpPageStyle.css">
     <link rel="icon" type="image/x-icon" href="../fasttask_favicon.svg">
+    <script src="../static/jsFiles/signUp.js"></script>
     <body>
         <h1>
             Create new account
         </h1>
-        <form class="signup_form" method="POST">
-            {% csrf_token %}
+        <div id="loginErrorDisplay" role="alert" aria-live="polite" class="login_error_display">
+            
+        </div>
+        <div class="signup_form">
             <div>
                 <label>
                     First name
                 </label>
-                <input type="text" placeholder="Enter your first name">
+                <input type="text" placeholder="Enter your first name" id="firstNameField">
             </div>
             <div>
                 <label>
                     Last name
                 </label>
-                <input type="text" placeholder="Enter your last name">
+                <input type="text" placeholder="Enter your last name" id="lastNameField">
             </div>
             <div>
                 <label>
                     Date of birth
                 </label>
-                <input type="date"/>
+                <input type="date" id="dobField"/>
             </div>
             <div>
                 <label>
                     Email address
                 </label>
-                <input type="email" placeholder="example@abc.com"/>
+                <input type="email" placeholder="example@abc.com" id="emailField"/>
             </div>
             <div>
                 <label>
                     Username
                 </label>
-                <input type="text" placeholder="Max 20 characters"/>
+                <input type="text" placeholder="Max 20 characters" id="usernameField"/>
             </div>
             <div>
                 <label>
                     Password
                 </label>
-                <input type="password" placeholder="8-20 characters long"/>
+                <input type="password" placeholder="8-20 characters long" id="passwordField"/>
             </div>
-            <input type="submit" value="Create account" class="signUpButton">
-        </form>
-        <a href="../htmlFiles/loginPage.html">Already have an account? Log in</a>
+            <button class="signup_button" id="signupButton">
+                Create account
+            </button>
+        </div>
+        <a href="../templates/loginPage.html">Already have an account? Log in</a>
     </body>
 </html>

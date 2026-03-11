@@ -6,7 +6,7 @@ h1 {
     color: #333333;
 }
 
-.signInForm {
+.signin_form {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,7 +22,7 @@ h1 {
     label {
         font-size: 20px;
     }
-    .signInButton {
+    .signin_button {
         width: 250px;
         height: 100px;
         margin-top: 20px;

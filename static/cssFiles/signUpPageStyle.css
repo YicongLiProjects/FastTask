@@ -21,7 +21,7 @@ h1 {
     label {
         font-size: 20px;
     }
-    .signUpButton {
+    .signup_button {
         width: 350px;
         height: 100px;
         margin-top: 30px;
@@ -30,6 +30,7 @@ h1 {
         color: #333333;
     }
 }
+
 a {
     display: flex;
     justify-self: center;
@@ -37,4 +38,11 @@ a {
     font-size: 25px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: #333333;
+}
+
+.login_error_display {
+    display: none;
+    color: red;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-top: 10px;
 }

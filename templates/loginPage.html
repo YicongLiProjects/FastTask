@@ -5,26 +5,29 @@
     </title>
     <link rel="stylesheet" href="../static/cssFiles/loginPageStyle.css">
     <link rel="icon" type="image/x-icon" href="../fasttask_favicon.svg">
+    <script src="../static/jsFiles/login.js"></script>
     <body>
         <h1>
             Sign into your account
         </h1>
-        <form class="signInForm">
+        <div class="signin_form">
             <div>
                 <label>
-                    Email address
+                    Email
                 </label>
-                <input type="email" placeholder="Enter email"/>
+                <input type="email" id="emailField" placeholder="Enter email"/>
             </div>
             <div>
                 <label>
                     Password
                 </label>
-                <input type="password" placeholder="Enter password">
+                <input type="password" id="passwordField" placeholder="Enter password">
             </div>
-            <input type="submit" value="Sign in" class="signInButton">
-        </form>
-        <a href="../htmlFiles/signUpPage.html">Don't have an account yet? Create an account</a>
-        <a href="../htmlFiles/passwordResetEmailPage.html">Forgot your password? Reset here</a>
+            <button class="signin_button" id="signInButton">
+                Sign in
+            </button>
+        </div>
+        <a href="../templates/signUpPage.html">Don't have an account yet? Create an account</a>
+        <a href="../templates/passwordResetEmailPage.html">Forgot your password? Reset here</a>
     </body>
 </html>

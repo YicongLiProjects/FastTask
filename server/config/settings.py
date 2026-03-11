@@ -1,12 +1,14 @@
 import os
 from pathlib import Path
-from django.conf.global_settings import SESSION_COOKIE_SAMESITE
+from django.conf.global_settings import SESSION_COOKIE_SAMESITE, AUTH_USER_MODEL
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+SECRET_KEY = ")nwn=6qt^9tu(&(9+a=4tpq1%fum=@w2wj4$(#xdn$d*dmk%#4"
 
 DATABASES = {
     'default': {
@@ -26,14 +28,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "application"
+    "application.apps.ApplicationConfig"
 ]
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware"
 ]
@@ -42,7 +44,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [BASE_DIR / 'FastTask' / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
