@@ -1,6 +1,7 @@
 emailField = document.getElementById("emailField");
 passwordField = document.getElementById("passwordField");
 signInButton = document.getElementById("signInButton");
+loginErrorDisplay = document.getElementById("loginErrorDisplay");
 
 signInButton.addEventListener("click", async () => {
     const login_data = {

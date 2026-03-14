@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <title>
-        Sign in - FastTask
-    </title>
+    <title>Sign in - FastTask</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'cssFiles/loginPageStyle.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'img/fasttask_favicon.svg' %}">
@@ -11,6 +9,9 @@
         <h1>
             Sign into your account
         </h1>
+        <div id="loginErrorDisplay" role="alert" aria-live="polite" class="login_error_display">
+
+        </div>
         <div class="signin_form">
             <div>
                 <label>

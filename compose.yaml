@@ -22,8 +22,8 @@ services:
     environment:
       MYSQL_DATABASE: fasttaskdb
       MYSQL_USER: fasttask
-      MYSQL_PASSWORD: "@todolistAPP25"
-      MYSQL_ROOT_PASSWORD: password
+      MYSQL_PASSWORD: ${FASTTASK_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
     
     ports:
       - "3306:3306"

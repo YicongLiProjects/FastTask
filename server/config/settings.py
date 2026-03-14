@@ -8,14 +8,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-SECRET_KEY = ")nwn=6qt^9tu(&(9+a=4tpq1%fum=@w2wj4$(#xdn$d*dmk%#4"
+SECRET_KEY = os.environ.get('SECRET_KEY_FASTTASK')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fasttaskdb',
         'USER': 'fasttask',
-        'PASSWORD': '@todolistAPP25',
+        'PASSWORD': os.environ.get('FASTTASK_PASSWORD'),
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

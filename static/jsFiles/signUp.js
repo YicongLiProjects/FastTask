@@ -5,7 +5,7 @@ emailField = document.getElementById("emailField");
 usernameField = document.getElementById("usernameField");
 passwordField = document.getElementById("passwordField");
 signupButton = document.getElementById("signupButton");
-loginErrorDisplay = document.getElementById("loginErrorDisplay");
+signupErrorDisplay = document.getElementById("signupErrorDisplay");
 
 signupButton.addEventListener("click", async () => {
     const signup_data = {
@@ -27,8 +27,8 @@ signupButton.addEventListener("click", async () => {
     try {
         const response = await fetch(request);
         if (!response.ok) {
-            loginErrorDisplay.textContent = response.statusText;
-            loginErrorDisplay.style.display = "block";
+            signupErrorDisplay.textContent = response.statusText;
+            signupErrorDisplay.style.display = "block";
         }
     } catch (error) {
         console.error("Error occurred while signing up:", error);
