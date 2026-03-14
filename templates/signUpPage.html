@@ -3,15 +3,16 @@
     <title>
         Sign up - FastTask
     </title>
-    <link rel="stylesheet" href="../static/cssFiles/signUpPageStyle.css">
-    <link rel="icon" type="image/x-icon" href="../fasttask_favicon.svg">
-    <script src="../static/jsFiles/signUp.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cssFiles/signUpPageStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'fasttask_favicon.svg' %}">
+    <script src="{% static 'jsFiles/signUp.js' %}" defer></script>
     <body>
         <h1>
             Create new account
         </h1>
         <div id="loginErrorDisplay" role="alert" aria-live="polite" class="login_error_display">
-            
+
         </div>
         <div class="signup_form">
             <div>
@@ -54,6 +55,6 @@
                 Create account
             </button>
         </div>
-        <a href="../templates/loginPage.html">Already have an account? Log in</a>
+        <a href="/login/">Already have an account? Log in</a>
     </body>
 </html>

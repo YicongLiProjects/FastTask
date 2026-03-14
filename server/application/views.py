@@ -21,6 +21,7 @@ from django.shortcuts import render
 
 # @ marks the start of a decorator used to support various HTTP features
 
+# Server scripting logic
 @csrf_exempt
 def signup(request):
     # Edge cases with HTTP requests
@@ -158,5 +159,26 @@ def edit_task(request):
     pass
 
 
+# HTML page views
 def index(request):
-    return render(request, 'mainPage.html')
+    return render(request, 'index.html')
+
+def signup_view(request):
+    return render(request, 'signUpPage.html')
+
+def login_view(request):
+    return render(request, 'loginPage.html')
+
+@login_required
+def app_view(request):
+    return render(request, 'appPage.html')
+
+@login_required
+def account_info_view(request):
+    return render(request, 'accountInfoPage.html')
+
+def password_reset_email_view(request):
+    return render(request, 'passwordResetEmailPage.html')
+
+def help_view(request):
+    return render(request, 'helpPage.html')

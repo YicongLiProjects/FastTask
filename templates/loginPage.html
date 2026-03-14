@@ -3,9 +3,10 @@
     <title>
         Sign in - FastTask
     </title>
-    <link rel="stylesheet" href="../static/cssFiles/loginPageStyle.css">
-    <link rel="icon" type="image/x-icon" href="../fasttask_favicon.svg">
-    <script src="../static/jsFiles/login.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cssFiles/loginPageStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'fasttask_favicon.svg' %}">
+    <script src="{% static 'jsFiles/login.js' %}" defer></script>
     <body>
         <h1>
             Sign into your account
@@ -27,7 +28,7 @@
                 Sign in
             </button>
         </div>
-        <a href="../templates/signUpPage.html">Don't have an account yet? Create an account</a>
-        <a href="../templates/passwordResetEmailPage.html">Forgot your password? Reset here</a>
+        <a href="/signup/">Don't have an account yet? Create an account</a>
+        <a href="/password_recovery/">Forgot your password? Reset here</a>
     </body>
 </html>
