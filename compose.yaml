@@ -4,10 +4,10 @@ services:
   web:
     build: .
     container_name: fasttask_webapp
-    command: gunicorn server.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn server.wsgi:application --bind 0.0.0.0:8000 && python manage.py collectstatic --noinput
     volumes:
       - .:/app
-    working_dir: /app/server
+    working_dir: /app
     ports:
       - "8000:8000"
     env_file:
