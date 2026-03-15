@@ -168,7 +168,7 @@ class LoginTest(TestCase):
     def test_login_1(self):
         c = Client()
         signup_response = c.post(
-            '/signup/',
+            '/signup/submit/',
             {
                 "display_name": "SweatySWE",
                 "email": "michael.smith@gmail.com",
@@ -178,7 +178,7 @@ class LoginTest(TestCase):
         )
         self.assertEqual(201, signup_response.status_code)
         login_response = c.post(
-            '/login/',
+            '/login/submit/',
             {
                 "email": "michael.smith@gmail.com",
                 "password": "password"
@@ -195,7 +195,7 @@ class LoginTest(TestCase):
     def test_login_2(self):
         c = Client()
         signup_response = c.post(
-            '/signup/',
+            '/signup/submit/',
             {
                 "display_name": "SweatySWE",
                 "email": "michael.smith@gmail.com",
@@ -205,10 +205,10 @@ class LoginTest(TestCase):
         )
         self.assertEqual(201, signup_response.status_code)
         login_response = c.post(
-            '/login/',
+            '/login/submit/',
             {
                 "email": "michael.smith@gmail.com",
-                "password": "password"
+                "password": "pass1234"
             },
             content_type='application/json'
         )
@@ -221,9 +221,9 @@ class LoginTest(TestCase):
     def test_login_3(self):
         c = Client()
         login_response = c.post(
-            '/login/',
+            '/login/submit/',
             {
-                "email": "michael.smith@gmail.com",
+                "email": "alicia.miller@gmail.com",
                 "password": "password"
             },
             content_type='application/json'

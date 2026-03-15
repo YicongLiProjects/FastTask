@@ -20,7 +20,7 @@ signupButton.addEventListener("click", async () => {
         method: "POST",
         headers: {
             "Content-Type": 'application/json',
-            "X-CSRFToken": '{{ csrf_token }}'
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
         },
         body: JSON.stringify(signup_data)
     });

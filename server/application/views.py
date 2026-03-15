@@ -81,7 +81,7 @@ def login_user(request):
 
     email = data.get("email", "").strip()
     password = data.get("password", "").strip()
-    if not Profile.objects.filter(user__email=email).exists():
+    if not Profile.objects.filter(user__username=email).exists():
         return JsonResponse({"error": "This user does not exist yet. Please create a new account"}, status=409)
 
     user = authenticate(username=email, password=password)

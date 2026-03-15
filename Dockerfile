@@ -31,4 +31,4 @@ COPY . .
 EXPOSE 8000
 
 # Start gunicorn for deployment
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "config.wsgi:application", "--chdir", "server"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--chdir", "server", "config.wsgi:application"]
