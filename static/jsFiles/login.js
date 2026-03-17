@@ -6,9 +6,9 @@ loginErrorDisplay = document.getElementById("loginErrorDisplay");
 signInButton.addEventListener("click", async () => {
     const login_data = {
         email: emailField.value,
-        passwordField: passwordField.value
+        password: passwordField.value
     };
-    const request = new Request("/login/", {
+    const request = new Request("/login/submit/", {
         method: "POST",
         headers: {
             'Content-Type':'application/json',
@@ -19,8 +19,11 @@ signInButton.addEventListener("click", async () => {
     try {
         const response = await fetch(request);
         if (!response.ok) {
-            loginErrorDisplay.textContent = response.statusText;
             loginErrorDisplay.style.display = "block";
+            loginErrorDisplay.textContent = response.error;
+        }
+        else {
+            window.location.href='/app/';
         }
     } catch (error) {
         console.error("Error occurred while logging in:", error);

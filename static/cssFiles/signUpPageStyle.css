@@ -40,7 +40,7 @@ a {
     color: #333333;
 }
 
-.login_error_display {
+.signup_error_display {
     display: none;
     color: red;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;

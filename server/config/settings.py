@@ -10,13 +10,14 @@ ALLOWED_HOSTS = ['*']
 
 SECRET_KEY = os.environ.get('SECRET_KEY_FASTTASK')
 
+# Use port 3307 to avoid conflict
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fasttaskdb',
         'USER': 'fasttask',
         'PASSWORD': os.environ.get('FASTTASK_PASSWORD'),
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '3306'
     }
 }

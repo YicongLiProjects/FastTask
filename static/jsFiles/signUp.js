@@ -16,7 +16,7 @@ signupButton.addEventListener("click", async () => {
         username: usernameField.value,
         password: passwordField.value
     };
-    const request = new Request("/signup/", {
+    const request = new Request("/signup/submit/", {
         method: "POST",
         headers: {
             "Content-Type": 'application/json',
@@ -27,8 +27,11 @@ signupButton.addEventListener("click", async () => {
     try {
         const response = await fetch(request);
         if (!response.ok) {
-            signupErrorDisplay.textContent = response.statusText;
             signupErrorDisplay.style.display = "block";
+            signupErrorDisplay.textContent = response.error;
+        }
+        else {
+            window.location.href='/app/';
         }
     } catch (error) {
         console.error("Error occurred while signing up:", error);
