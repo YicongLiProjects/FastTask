@@ -14,16 +14,20 @@ signInButton.addEventListener("click", async () => {
             'Content-Type':'application/json',
             'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
         },
-        body: JSON.stringify(login_data)
+        body: JSON.stringify(login_data),
+        credentials: 'include'
     });
     try {
         const response = await fetch(request);
+        const data = await response.json();
         if (!response.ok) {
+            loginErrorDisplay.textContent = data.error;
             loginErrorDisplay.style.display = "block";
-            loginErrorDisplay.textContent = response.error;
         }
         else {
-            window.location.href='/app/';
+            const urlParams = new URLSearchParams(window.location.search);
+            const nextUrl = urlParams.get('next') || '/app/';
+            window.location.href= nextUrl;
         }
     } catch (error) {
         console.error("Error occurred while logging in:", error);

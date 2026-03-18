@@ -138,7 +138,7 @@ def get_tasks(request):
         return JsonResponse({"error": "GET request required"}, status=400)
 
     tasks = request.GET.get("tasks", "")
-    return JsonResponse(tasks)
+    return JsonResponse(tasks, status=200)
 
 
 @csrf_exempt

@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from django.conf.global_settings import SESSION_COOKIE_SAMESITE, AUTH_USER_MODEL
+from django.conf.global_settings import SESSION_COOKIE_SAMESITE, AUTH_USER_MODEL, LOGIN_REDIRECT_URL
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -82,8 +82,12 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost"
 ]
 
-CSRF_COOKIE_SAMESITE = "None"
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = False
 
-SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SAMESITE = "Lax"
 SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_DOMAIN = None
+
+LOGIN_URL = 'login_view'
+LOGIN_REDIRECT_URL = '/app/'
