@@ -235,7 +235,7 @@ class LoginTest(TestCase):
 Hash password correctly and add this value to the database when the user is created
 """
 class PasswordHashTest(TestCase):
-    def hash_test(self):
+    def test_hash_password(self):
         password = 'password'
         hashed_password = make_password(password)
         self.assertTrue(check_password(password, hashed_password))
