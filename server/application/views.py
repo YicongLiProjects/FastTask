@@ -2,6 +2,11 @@ import json
 import os
 import sys
 from pathlib import Path
+
+import boto3
+
+import config.settings
+
 sys.path.append(Path(__file__).resolve().parent.parent.__str__())
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "server.settings")
 
@@ -11,7 +16,7 @@ django.setup()
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.utils import timezone
 from datetime import datetime
 from .models import *
@@ -91,6 +96,13 @@ def login_user(request):
     return JsonResponse({"status": "ok"}, status=200)
 
 
+def logout_user(request):
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required"}, status=400)
+    logout(request)
+    return JsonResponse({"status": "ok"}, status=200)
+
+
 @login_required
 def get_profile(request):
     # Use GET request to retrieve information
@@ -111,25 +123,60 @@ def get_profile(request):
 def update_profile(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required"}, status=400)
-    fn = request.POST.get("first_name", "")
-    ln = request.POST.get("last_name", "")
-    dob = request.POST.get("dob", "")
-    email = request.POST.get("email", "")
-    username = request.POST.get("username", "")
-    password = request.POST.get("password", "")
-    pfp = request.POST.get("pfp", "")
-    user = User.objects.create_user(username, email, password, first_name=fn, last_name=ln)
-    profile = Profile.objects.get(user=user)
-    profile.dob = dob
-    profile.pfp = pfp
-    return JsonResponse({
-        "fn": user.first_name,
-        "ln": user.last_name,
-        "dob": profile.dob,
-        "pfp": profile.pfp,
-        "email": user.email,
-        "username": user.username
-    })
+
+    # Get fields to update
+    fn = request.POST.get("first_name", "").strip()
+    ln = request.POST.get("last_name", "").strip()
+    dob = request.POST.get("dob", "").strip()
+    email = request.POST.get("email", "").strip()
+    display_name = request.POST.get("display_name", "").strip()
+    password = request.POST.get("password", "").strip()
+    pfp = request.FILES.get("pfp")
+
+    dob_format = "%Y-%m-%d"
+    try:
+        dob = datetime.strptime(dob, dob_format).date()
+    except ValueError:
+        # 1 January 1900 is the default date of birth if no input is provided
+        dob = datetime.strptime("1900-01-01", dob_format).date()
+
+    # Get profile to update defined by user ID to ensure state consistency
+    profile = Profile.objects.get(user_id=request.user.id)
+
+    # Delete old file
+    if profile.pfp:
+        profile.pfp.delete(save=False)
+
+    # Check file format
+    if pfp is not None and pfp.content_type not in ["image/png", "image/jpg", "image/jpeg"]:
+        return JsonResponse({"error": "Invalid file extension"}, status=400)
+
+    if fn is not None and fn != "" and len(fn) <= 30:
+        profile.user.first_name = fn
+
+    if ln is not None and ln != "" and len(ln) <= 30:
+        profile.user.last_name = ln
+
+    if password is not None and password != "" and 8 <= len(password) <= 20:
+        profile.user.set_password(password)
+
+    if email is not None and email != "":
+        profile.user.email = email
+        profile.user.username = email
+
+    if dob is not None and dob != "":
+        profile.dob = dob
+
+    if display_name is not None and display_name != "" and len(display_name) <= 20:
+        profile.display_name = display_name
+
+    if pfp is not None:
+        profile.pfp = pfp
+
+    profile.user.save()
+    profile.save()
+
+    return JsonResponse({"status": "ok"}, status=200)
 
 
 @login_required

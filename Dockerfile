@@ -1,8 +1,8 @@
 FROM python:3.14-slim
 
 # Environment variables
-ENV PYTHONDONTWRITEBYTECODE = 1
-ENV PYTHONUNBUFFERED = 1
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
 # Labels of the project
 LABEL authors="yiconglisprojects"
@@ -22,7 +22,7 @@ WORKDIR /app
 # Install Python dependencies
 # requirements.txt lists the dependencies the project will rely on
 COPY requirements.txt ./
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache -r requirements.txt
 
 # Copy entire project
 COPY . .

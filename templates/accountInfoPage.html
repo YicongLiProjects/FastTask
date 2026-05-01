@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <title>FastTask account</title>
+    {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'img/fasttask_favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'cssFiles/accountInfoPageStyle.css' %}">
     <script src="{% static 'jsFiles/accountInformation.js' %}" defer></script>
@@ -11,7 +12,7 @@
             <button class="pfp_upload_btn" id="pfpUploadBtn">Upload new image</button>
             <input type="file" id="pfpFileInput" accept=".jpg, .png, .jpeg" style="display: none;">
         </div>
-        <form class="user_info">
+        <div class="user_info">
             <div>
                 <label>
                     First name
@@ -40,8 +41,12 @@
                 <label>Password</label>
                 <input type="password" placeholder="Enter new password">
             </div>
-        </form>
-        <input type="submit" value="Save changes" class="submit_form_btn">
-        <input type="submit" value="Cancel" class="submit_form_btn">
+        </div>
+        <button class="submit_btn" id="submitChangesBtn">
+            Save changes
+        </button>
+        <button class="submit_btn" id="cancelChangesBtn">
+            Cancel
+        </button>
     </body>
 </html>

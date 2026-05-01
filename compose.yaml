@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   web:
     build: .
@@ -31,5 +29,20 @@ services:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: fasttask_minio
+    ports:
+      - "9000:9000"
+      - "9000:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - ./data:/data
+    command: server /data --console-address ":9001"
+    restart: always
+
 volumes:
     mysql_data:

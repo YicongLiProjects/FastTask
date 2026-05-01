@@ -123,16 +123,22 @@ deleteTaskButton.onclick = function() {
 }
 
 helpButton.onclick = function() {
-    document.location.href = "helpPage.html";
+    document.location.href = "/help/";
 }
 
 accountDetailsButton.onclick = function() {
-    document.location.href = "accountInfoPage.html";
+    document.location.href = "/account_info/";
 }
 
-logoutButton.onclick = function() {
-    document.location.href = "loginPage.html";
-}
+logoutButton.addEventListener("click", async () => {
+    const request = new Request("/logout/", {
+        method: "POST",
+        headers: {
+            "Content-Type": 'application/json',
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+});
 
 // Helper functions
 function styleTask(taskBtn, id) {

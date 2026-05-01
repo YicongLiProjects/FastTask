@@ -6,7 +6,7 @@ class Profile(models.Model):
     user_id_primary = models.BigAutoField(primary_key=True)
     xp = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
-    pfp = models.URLField(blank=True, null=True)
+    pfp = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     dob = models.DateField()
     display_name = models.CharField(max_length=20, blank=True, null=True)
 
