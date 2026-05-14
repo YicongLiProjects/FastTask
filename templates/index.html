@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>FastTask - An easy to use task planner</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cssFiles/indexStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/fasttask_favicon.svg' %}">
+    <script src="{% static 'jsFiles/mainPage.js' %}" defer></script>
+    <body>
+        <div class="headerMainPage">
+            <Button class="mainMenuHeaderButton" id="loginButton">Login</Button>
+            <Button class="mainMenuHeaderButton" id="helpButton">Help</Button>
+        </div>
+        <div class="pageContentMainPage">
+            <h1>Welcome to FastTask!</h1>
+            <p>
+                A game-like task planner where you can level up your experiences!
+                <br>
+                Register now and never miss a deadline again!
+            </p>
+            <button id="signUpButton">
+                Sign up
+            </button>
+        </div>
+    </body>
+</html>

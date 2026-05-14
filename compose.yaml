@@ -1,0 +1,48 @@
+services:
+  web:
+    build: .
+    container_name: fasttask_webapp
+    command: gunicorn --chdir server --bind 0.0.0.0:8000 config.wsgi:application && python manage.py collectstatic --noinput && python manage.py migrate
+    volumes:
+      - .:/app
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - SECRET_KEY_FASTTASK=${DJANGO_SECRET_KEY}
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.4
+    container_name: fasttask_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${FASTTASK_DATABASE}
+      MYSQL_USER: ${FASTTASK_USER}
+      MYSQL_PASSWORD: ${FASTTASK_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
+    
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: fasttask_minio
+    ports:
+      - "9000:9000"
+      - "9000:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    volumes:
+      - ./data:/data
+    command: server /data --console-address ":9001"
+    restart: always
+
+volumes:
+    mysql_data:

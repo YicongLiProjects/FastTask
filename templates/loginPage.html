@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Sign in - FastTask</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cssFiles/loginPageStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/fasttask_favicon.svg' %}">
+    <script src="{% static 'jsFiles/login.js' %}" defer></script>
+    <body>
+        <h1>
+            Sign into your account
+        </h1>
+        <div id="loginErrorDisplay" role="alert" aria-live="polite" class="login_error_display">
+
+        </div>
+        {% csrf_token %}
+        <div class="signin_form">
+            <div>
+                <label>
+                    Email
+                </label>
+                <input type="email" id="emailField" placeholder="Enter email"/>
+            </div>
+            <div>
+                <label>
+                    Password
+                </label>
+                <input type="password" id="passwordField" placeholder="Enter password">
+            </div>
+            <button class="signin_button" id="signInButton">
+                Sign in
+            </button>
+        </div>
+        <a href="/signup/">Don't have an account yet? Create an account</a>
+        <a href="/password_recovery/">Forgot your password? Reset here</a>
+    </body>
+</html>

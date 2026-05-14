@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>
+        Sign up - FastTask
+    </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'cssFiles/signUpPageStyle.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'img/fasttask_favicon.svg' %}">
+    <script src="{% static 'jsFiles/signUp.js' %}" defer></script>
+    <body>
+        <h1>
+            Create new account
+        </h1>
+        <div id="signupMessageDisplay" role="alert" aria-live="polite" class="signup_message_display">
+
+        </div>
+        {% csrf_token %}
+        <div class="signup_form">
+            <div>
+                <label>
+                    First name
+                </label>
+                <input type="text" placeholder="Enter your first name" id="firstNameField">
+            </div>
+            <div>
+                <label>
+                    Last name
+                </label>
+                <input type="text" placeholder="Enter your last name" id="lastNameField">
+            </div>
+            <div>
+                <label>
+                    Date of birth
+                </label>
+                <input type="date" id="dobField"/>
+            </div>
+            <div>
+                <label>
+                    Email address
+                </label>
+                <input type="email" placeholder="example@abc.com" id="emailField"/>
+            </div>
+            <div>
+                <label>
+                    Username
+                </label>
+                <input type="text" placeholder="Max 20 characters" id="usernameField"/>
+            </div>
+            <div>
+                <label>
+                    Password
+                </label>
+                <input type="password" placeholder="8-20 characters long" id="passwordField"/>
+            </div>
+            <button class="signup_button" id="signupButton">
+                Create account
+            </button>
+        </div>
+        <a href="/login/">Already have an account? Log in</a>
+    </body>
+</html>
