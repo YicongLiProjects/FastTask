@@ -239,13 +239,21 @@ accountDetailsButton.onclick = function() {
 }
 
 logoutButton.addEventListener("click", async () => {
-    const request = new Request("/logout/", {
+    const request = new Request("/logout/submit/", {
         method: "POST",
         headers: {
             "Content-Type": 'application/json',
             "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
         }
-    })
+    });
+    try {
+        const response = await fetch(request);
+        if (response.ok) {
+            document.location.href = "/login/";
+        }
+    } catch (error) {
+        alert("Error logging out: " + error);
+    }
 });
 
 // Style the task button
