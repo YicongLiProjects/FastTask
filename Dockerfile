@@ -13,6 +13,7 @@ LABEL authors="yiconglisprojects"
 RUN apt-get update && apt-get install -y \
     build-essential \
     default-libmysqlclient-dev \
+    pkg-config \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -22,13 +23,12 @@ WORKDIR /app
 # Install Python dependencies
 # requirements.txt lists the dependencies the project will rely on
 COPY requirements.txt ./
-RUN pip install --upgrade pip && pip install --no-cache -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
 # Copy entire project
 COPY . .
 
-# Expose port
-EXPOSE 8000
-
 # Start gunicorn for deployment
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--chdir", "server", "config.wsgi:application"]
+CMD python server/manage.py migrate && \
+python server/manage.py collectstatic --noinput && \
+gunicorn --bind 0.0.0.0:10000 --chdir server config.wsgi:application

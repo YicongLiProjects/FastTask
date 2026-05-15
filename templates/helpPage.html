@@ -4,9 +4,48 @@
     {% load static %}
     <link rel="icon" type="image/x-icon" href="{% static 'img/fasttask_favicon.svg' %}">
     <link rel="stylesheet" href="{% static 'cssFiles/helpPageStyle.css' %}">
+    <script src="{% static 'jsFiles/helpPage.js' %}" defer></script>
     <body>
         <h1>
-            Help Page coming soon!
+            Help Page
         </h1>
+        <button class="collapsible">Description of app</button>
+        <div class="content">
+            <p>
+                FastTask is a todo list app that allows you to easily keep track of your 
+                tasks and stay well organized. You can create tasks with the name of your choice, 
+                a deadline, a description and a reminder notification. You can also gain XP and level up
+                by completing enough tasks and on the app page you can view your current level and XP. 
+            </p>
+        </div>
+        <button class="collapsible">Signup and login</button>
+        <div class="content">
+            <p>
+                To sign up and log in, just click on the big sign up button at the center of the main page
+                or the login button at the top right corner of the page, to the left of the help button used
+                to access this page from the main page. 
+            </p>
+        </div>
+        <button class="collapsible">Creating tasks, editing and deleting tasks</button>
+        <div class="content">
+            <p>
+                To create a task, just click on the big plus button at the top left corner of the page below
+                the header (purple FastTask name) and a modal box will pop up where you can enter the name, 
+                deadline, description and reminder date and time for the task. After creating the task, you can also
+                edit or delete it by clicking on the task button with the title and deadline of the one you want 
+                to edit or delete, a similar modal box will pop up with the current information of this task. You can 
+                simply input new information of the task. To delete the task, just click on the delete button. 
+            </p>
+        </div>
+        <button class="collapsible">Task completion</button>
+        <div class="content">
+            <p>
+                To mark a task as complete, just click on the complete button in the modal box that pops up when
+                you click on the task button that has the title and deadline of the task you want to mark. You can get
+                20 XP for each completed task and when you reach 100 times your current level, you will level up and your
+                XP will be reset to 0. For example, if you're currently at level 3, you will need to complete 15 tasks to
+                level up assuming you have 0 XP. 
+            </p>
+        </div>
     </body>
 </html>

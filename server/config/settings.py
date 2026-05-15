@@ -9,7 +9,7 @@ mimetypes.add_type("image/x-icon", ".ico", True)
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -106,11 +106,23 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost"
 ]
 
+# Deployment to Render to allow the website to be accessed
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
+
 CSRF_COOKIE_SAMESITE = "Lax"
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+
+SECURE_HSTS_SECONDS = 63072000
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
 
 SESSION_COOKIE_SAMESITE = "Lax"
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_DOMAIN = None
 
 LOGIN_URL = 'login_view'
