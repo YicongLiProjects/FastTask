@@ -2,3 +2,29 @@ h1 {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 60px;
 }
+
+.collapsible {
+    background-color: #181818;
+    color: #9c9c9c;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 24px;
+    padding: 15px;
+}
+
+.content {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    padding: 0 15px;
+    display: none;
+    overflow: hidden;
+    background-color: #c5c5c5;
+}
+
+.active, .collapsible:hover {
+  background-color: #727272;
+}
