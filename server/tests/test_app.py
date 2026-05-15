@@ -42,7 +42,7 @@ class TasksCRUDTest(TestCase):
             data = {
                 "title": "New Task",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "rWUu1CgfBy2nbUwDRk1Ui5WnnFRj86Aez6WD"
             },
             content_type='application/json'
@@ -58,7 +58,7 @@ class TasksCRUDTest(TestCase):
             '/add_task/',
             data={
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "zmyW8ndgw2xt2jFgUZ2nJ7JF3kfvjc7iZXUb"
             },
             content_type='application/json'
@@ -74,7 +74,7 @@ class TasksCRUDTest(TestCase):
             '/add_task/',
             data={
                 "title": "New Task",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "DCKG8WkNkHK0WmkEz36L3NZ52bkn6P9nPtLy"
             },
             content_type='application/json'
@@ -91,7 +91,7 @@ class TasksCRUDTest(TestCase):
             data={
                 "title": "New Task",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2028-11-13T08:00",
+                "remindAt": "2028-11-13T08:00",
                 "task_id": "nZ4MafanHQytnxfQwfBkTjCDFiRYiPHAWxKK"
             },
             content_type='application/json'
@@ -109,7 +109,7 @@ class TasksCRUDTest(TestCase):
             data={
                 "title": "Complete homework",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "UkerXzCv9wtK0wUrNzWqgSvXbSFGSJXVqarA"
             },
             content_type='application/json'
@@ -135,7 +135,7 @@ class TasksCRUDTest(TestCase):
             data={
                 "title": "New Task",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "07WqUw8uXt5pYWRpLvux8rUnJp5p065aN40H"
             },
             content_type='application/json'
@@ -161,7 +161,7 @@ class TasksCRUDTest(TestCase):
             data={
                 "title": "New Task",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "ywcLnecXFieTaT0XScdK4m27TyZ2UZ7RGGtH"
             },
             content_type='application/json'
@@ -170,7 +170,7 @@ class TasksCRUDTest(TestCase):
         response = self.client.post(
             '/edit_task/',
             data={
-                "remind_at": "2026-12-13T08:00",
+                "remindAt": "2026-12-13T08:00",
                 "task_id": "ywcLnecXFieTaT0XScdK4m27TyZ2UZ7RGGtH"
             },
             content_type='application/json'
@@ -186,7 +186,7 @@ class TasksCRUDTest(TestCase):
             data={
                 "title": "New Task",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "reVi9eG1zqZLv9N19a7cCxHeBdZUMqbNniAf"
             },
             content_type='application/json'
@@ -240,7 +240,7 @@ class LevelsAndXPTest(TestCase):
             data={
                 "title": "New Task",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "RLw6ikmXvM6rPStJ7RiiEBvk9Bu38deGfQx4"
             },
             content_type='application/json'
@@ -267,7 +267,7 @@ class LevelsAndXPTest(TestCase):
             data={
                 "title": "New Task",
                 "deadline": "2027-05-13T08:00",
-                "remind_at": "2026-11-13T08:00",
+                "remindAt": "2026-11-13T08:00",
                 "task_id": "mS7mkx2BPF7FHV5bHiyq6ur644hp0p8egjvt"
             },
             content_type='application/json'

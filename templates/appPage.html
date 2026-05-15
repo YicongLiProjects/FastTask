@@ -12,8 +12,8 @@
             <div class="user_info_panel">
                 <div class="user_data">
                     <h4>{{ request.user.profile.display_name }}</h4>
-                    <h4>{{ request.user.profile.xp }} XP</h4>
-                    <h4>Level {{ request.user.profile.level }}</h4>
+                    <h4 id="xpValue">{{ request.user.profile.xp }} XP</h4>
+                    <h4 id="levelValue">Level {{ request.user.profile.level }}</h4>
                 </div>
                 <button class="pfp" id="pfpButton">
                     {% if request.user.profile.pfp %}

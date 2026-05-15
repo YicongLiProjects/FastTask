@@ -20,11 +20,50 @@ let accountBox = document.getElementById("accountBox");
 let taskContainer = document.getElementById("taskContainer");
 let modalTitle = document.getElementById("modalTitle");
 
+let xpValue = document.getElementById("xpValue");
+let levelValue = document.getElementById("levelValue");
+
 let clickedElement = null;
 
 // List containing all tasks 
+let tasksRequest = new Request("/get_tasks/", {
+    method: "GET",
+    headers: {
+        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+    }
+});
+
 let tasks = [];
 
+function formatDateTime(dateTimeStr) {
+    if (!dateTimeStr || dateTimeStr.length < 16) {
+        return '';
+    }
+    date = dateTimeStr.slice(0, 10);
+    t = 'T';
+    time = dateTimeStr.slice(11, 16);
+    formattedDateTime = date + t + time;
+    return formattedDateTime;
+}
+// Load tasks from the database and add them while styling it using a helper defined at the end.
+// Do this and styling with Django's for loop with {{}} in the HTML file to make the task easier
+async function loadTasks() {
+    try {
+        const response = await fetch(tasksRequest);
+        tasks_json = await response.json();
+        tasks = tasks_json.tasks;
+        // Use the field names as in the model (database)!!!!!!!!!!
+        tasks.forEach(t => addTask(t.title, formatDateTime(t.deadline), formatDateTime(t.remindAt), t.notes, t.taskID));
+    } catch (e) {
+        console.error("Error loading tasks: ", e);
+    }
+}
+
+// Load tasks into the page, execute only when DOM fully loaded 
+// When querying from database, always async / await to ensure everything loads properly
+document.addEventListener("DOMContentLoaded", async () => {
+    await loadTasks();
+});
 
 pfpButton.onclick = function() {
     if (accountBox.style.display === "none") {
@@ -55,30 +94,67 @@ window.onclick = function(event) {
     }
 }
 
-saveTaskButton.onclick = function() {
+saveTaskButton.addEventListener("click", async () => {
     modalBox.style.display = "none";
-    
-    const now = new Date();
 
-    // Edge cases and input verification
-    if (taskNameInput.value === "" || taskEnd.value === "") {
-        alert("Please fill in all required fields.");
-        return;
+    const taskData = {
+        title: taskNameInput.value,
+        deadline: taskEnd.value,
+        remindAt: remindAt.value,
+        notes: taskNotes.value,
+    };
+    if (modalTitle.innerText === "Add new task") {
+        taskData.task_id = crypto.randomUUID();
+        const request = new Request("/add_task/", {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify(taskData)
+        });
+
+        try {
+            const response = await fetch(request);
+            const data = await response.json();
+            if (response.ok) {
+                addTask(taskData.title, taskData.deadline, taskData.remindAt, taskData.notes, taskData.task_id);
+            }
+            else {
+                alert("Error adding task: " + data.error);
+            }
+        } catch (error) {
+            alert("Error adding task: " + error);
+        }
     }
-    
-    if (new Date(taskEnd.value) < now) {
-        alert("The due date and time must be in the future.");
-        return;
+    else if (modalTitle.innerText === "Edit task") {
+        taskData.task_id = clickedElement.id;
+        const request = new Request("/edit_task/", {
+        method: "POST", 
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify(taskData)
+        });
+
+        try {
+            const response = await fetch(request);
+            const data = await response.json();
+            if (response.ok) {
+                styleTask(clickedElement, taskData.task_id, taskData.title, taskData.deadline);
+                // We can assume that the task ID does not change as we edit the task
+                const i = tasks.findIndex(t => t.task_id === clickedElement.id);
+                tasks[i] = taskData;
+            }
+            else {
+                alert("Error editing task: " + data.error);
+            }
+        } catch (error) {
+            alert("Error editing task: " + error);
+        }
     }
-
-    if (new Date(remindAt.value) < now || new Date(remindAt.value) > new Date(taskEnd.value)) {
-        alert("The reminder time must be in the future and before the task's due time.");
-        return;
-    }
-
-    addTask(taskNameInput.value, taskEnd.value, remindAt.value, taskNotes.value);
-
-}
+});
 
 resetButton.onclick = function() {
     clear();
@@ -88,30 +164,71 @@ taskContainer.addEventListener('click', function(e) {
     clickedElement = e.target.closest('button');
     if (clickedElement && taskContainer.contains(clickedElement)) {
         modalBox.style.display = "block";
-        // Retrieve task of this button
-        const ID = clickedElement.style.id;
-        const task = tasks.find(t => t.taskID === ID);
+        // Get task of this button
+        const ID = clickedElement.id;
+        const task = tasks.find(t => t.task_id === ID);
 
         // Populate modal with task info and restyle the modal box
-        taskNameInput.value = task.name;
-        taskEnd.value = task.dueDate;
-        remindAt.value = task.remindAt;
+        taskNameInput.value = task.title;
+        taskEnd.value = formatDateTime(task.deadline);
+        remindAt.value = formatDateTime(task.remindAt);
         taskNotes.value = task.notes;
         modalTitle.innerText = "Edit task";
         deleteTaskButton.disabled = false;
+        completeButton.disabled = false;
     }
 });
 
-deleteTaskButton.onclick = function() {
+deleteTaskButton.addEventListener("click", async () => {
     if (clickedElement) {
-        const ID = clickedElement.style.id;
-        tasks = tasks.filter(t => t.taskID !== ID);
-        taskContainer.removeChild(clickedElement);
-        modalBox.style.display = "none";
-        clickedElement = null;
-        deleteTaskButton.disabled = true;
+        const taskID = clickedElement.id;
+        const request = new Request("/remove_task/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({task_id: taskID})
+        });
+        try {
+            const response = await fetch(request);
+            if (response.ok) {
+                removeTask(clickedElement, taskID);
+            }
+        } catch (error) {
+            alert("Error deleting task: " + error);
+        }
     }
-}
+});
+
+completeButton.addEventListener("click", async () => {
+    if (clickedElement) {
+        const taskID = clickedElement.id;
+        const request = new Request("/complete_task/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({task_id: taskID})
+        });
+        try {
+            const response = await fetch(request);
+            if (response.ok) {
+                removeTask(clickedElement, taskID);
+
+                // Update XP and level on the client end to reflect changes on the server end
+                xpValue.textContent = parseInt(xpValue.textContent.split(" ")[0]) + 20 + " XP";
+                if (parseInt(xpValue.textContent) >= 100 * parseInt(levelValue.textContent.split(" ")[1])) {
+                    levelValue.textContent = "Level " + (parseInt(levelValue.textContent.split(" ")[1]) + 1);
+                    xpValue.textContent = 0 + " XP";
+                }
+            }
+        } catch (error) {
+            alert("Error marking task as completed: " + error);
+        }
+    }
+});
 
 helpButton.onclick = function() {
     document.location.href = "/help/";
@@ -132,7 +249,7 @@ logoutButton.addEventListener("click", async () => {
 });
 
 // Style the task button
-function styleTask(taskBtn, id) {
+function styleTask(taskBtn, id, title, deadline) {
     taskBtn.style.width = "300px";
     taskBtn.style.height = "180px";
     taskBtn.style.borderRadius = "20px";
@@ -143,26 +260,34 @@ function styleTask(taskBtn, id) {
     taskBtn.style.color = "purple";
     taskBtn.style.fontSize = "20px";
     taskBtn.style.fontFamily = "Trebuchet MS, sans-serif";
-    taskBtn.style.id = id;
-    taskBtn.innerHTML = taskNameInput.value + "<br>Due on: " + new Date(taskEnd.value).toLocaleDateString() + " " + new Date(taskEnd.value).toLocaleTimeString();
+    taskBtn.id = id;
+    taskBtn.innerHTML = title + "<br>Due on: " + new Date(deadline).toLocaleDateString() + " " + new Date(deadline).toLocaleTimeString();
 }
 
-// Create one HTML button for each task from data
-function addTask(taskName, taskDue, taskRemind, notesOfTask) {
+// Create one HTML button for each task from data, client end
+function addTask(taskName, taskDue, taskRemind, notesOfTask, taskId) {
     const newTaskBtn = document.createElement("button");
-    const taskId = crypto.randomUUID();
-    styleTask(newTaskBtn, taskId);
-
+    
     let task = {
-        taskID: taskId,
-        name: taskName,
-        dueDate: taskDue,
+        title: taskName,
+        deadline: taskDue,
         remindAt: taskRemind,
-        notes: notesOfTask
+        notes: notesOfTask,
+        task_id: taskId
     };
+
+    styleTask(newTaskBtn, taskId, taskName, taskDue);
     tasks.push(task);
     taskContainer.appendChild(newTaskBtn);
 }
+
+function removeTask(clicked, taskID) {
+    tasks = tasks.filter(t => t.task_id !== taskID);
+    taskContainer.removeChild(clicked);
+    modalBox.style.display = "none";
+    clickedElement = null;
+    deleteTaskButton.disabled = true;
+} 
 
 function clear() {
     document.getElementById("taskName").value = "";

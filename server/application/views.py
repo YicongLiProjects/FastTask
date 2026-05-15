@@ -159,14 +159,15 @@ def update_profile(request):
     return JsonResponse({"status": "ok"}, status=200)
 
 
+@csrf_exempt
 @login_required
 def get_tasks(request):
     if request.method != "GET":
         return JsonResponse({"error": "GET request required"}, status=400)
 
     tasks = Task.objects.filter(user=request.user.profile).values()
-    tasks_json = json.dumps(list(tasks))
-    return JsonResponse({"tasks": tasks_json}, status=200)
+    tasks_list = list(tasks)
+    return JsonResponse({"tasks": tasks_list}, status=200)
 
 
 @csrf_exempt
@@ -182,7 +183,7 @@ def add_task(request):
     title = data.get("title", "").strip()
     notes = data.get("notes", "").strip()
     deadline = data.get("deadline", "").strip()
-    remind_at = data.get("remind_at", "").strip()
+    remind_at = data.get("remindAt", "").strip()
     task_id = data.get("task_id", "").strip()
     # Parse datetime strings to datetime objects
     datetime_format = "%Y-%m-%dT%H:%M"
@@ -191,13 +192,15 @@ def add_task(request):
         deadline = datetime.strptime(deadline, datetime_format)
         deadline = timezone.make_aware(deadline)
 
-    try:
-        remind_at = datetime.strptime(remind_at, datetime_format)
-        remind_at = timezone.make_aware(remind_at)
-    except ValueError:
-        remind_at = datetime.strptime("2026-11-13T08:00", datetime_format)
-        remind_at = timezone.make_aware(remind_at)
+    if remind_at is not None and remind_at != "":
+        try:
+            remind_at = datetime.strptime(remind_at, datetime_format)
+            remind_at = timezone.make_aware(remind_at)
+        except ValueError:
+            remind_at = None
 
+    if remind_at == "" or remind_at is None:
+        remind_at = None
 
     if title is None or title == "":
         return JsonResponse({"error": "The task must have a name"}, status=400)
@@ -225,9 +228,14 @@ def add_task(request):
 def remove_task(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST request required"}, status=400)
+    try:
+        data = json.loads(request.body)
+    except json.decoder.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON"}, status=400)
 
-    task_id = request.POST.get("task_id", "")
-    Task.objects.get(user=request.user.id, taskID=task_id).delete()
+    task_id = data.get("task_id", "").strip()
+
+    Task.objects.get(user=request.user.profile, taskID=task_id).delete()
     return JsonResponse({"status": "ok"}, status=200)
 
 
@@ -244,7 +252,7 @@ def edit_task(request):
     title = data.get("title", "").strip()
     notes = data.get("notes", "").strip()
     deadline = data.get("deadline", "").strip()
-    remind_at = data.get("remind_at", "").strip()
+    remind_at = data.get("remindAt", "").strip()
     task_id = data.get("task_id", "").strip()
 
     task = Task.objects.get(user=request.user.profile, taskID=task_id)
@@ -260,14 +268,16 @@ def edit_task(request):
         remind_at = datetime.strptime(remind_at, datetime_format)
         remind_at = timezone.make_aware(remind_at)
     except ValueError:
-        remind_at = datetime.strptime("2026-11-13T08:00", datetime_format)
-        remind_at = timezone.make_aware(remind_at)
+        remind_at = None
 
+    # Force the reminder to be none if not provided
+    if remind_at == "" or remind_at is None:
+        remind_at = None
 
     if deadline <= timezone.now():
         return JsonResponse({"error": "Deadline must be after now"}, status=400)
 
-    if not (timezone.now() <= remind_at < deadline):
+    if remind_at is not None and not (timezone.now() <= remind_at < deadline):
         return JsonResponse({"error": "Reminder must be between now and the deadline"}, status=400)
 
     if len(title) > 100:
